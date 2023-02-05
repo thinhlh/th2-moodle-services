@@ -1,0 +1,86 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+  # postgres:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/db/Dockerfile
+  #   restart: always
+  #   container_name: th2-postgres
+  #   profiles:
+  #     - dev
+  #   environment:
+  #     - POSTGRES_HOST
+  #     - POSTGRES_PORT
+  #     - POSTGRES_DB
+  #     - POSTGRES_USER
+  #     - POSTGRES_PASSWORD
+  #   ports:
+  #     - 5433:5432
+  #     - 5432:5432
+
+  schedules:
+    build:
+      context: .
+      dockerfile: ./docker/schedules/Dockerfile
+    container_name: th2-schedules
+    environment:
+      - ENV=dev
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - RABBITMQ_HOST
+      - RABBITMQ_PORT
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+      - AUTH_HOST
+      - AUTH_PORT
+      - AWS_ACCESS
+      - AWS_SECRET
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    restart: on-failure
+
+  assignment:
+    build:
+      context: .
+      dockerfile: ./docker/assignment/Dockerfile
+    container_name: th2-assignment
+    ports:
+      - 3000:8080
+    environment:
+      - ENV=dev
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - RABBITMQ_HOST
+      - RABBITMQ_PORT
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+      - AUTH_HOST
+      - AUTH_PORT
+      - AWS_ACCESS
+      - AWS_SECRET
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    restart: on-failure

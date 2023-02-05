@@ -1,0 +1,12 @@
+{
+  "notfound": {
+    "article": "Article Not Found!",
+    "category": "Category Not Found!",
+    "course": "Course Not Found!",
+    "user": "Không tìm thấy người dùng!"
+  },
+  "duplicated": {
+    "email": "Email is duplicated!",
+    "joined-course": "Student already joined course!"
+  }
+}
