@@ -57,15 +57,15 @@ export class ScheduleController {
             Source: "thinhlh0812@gmail.com"
         });
 
-
-        if (this.configService.get('SEND_EMAIL')) {
+        if (this.configService.get<boolean>('SEND_EMAIL')) {
             console.log('Sending email')
             const result = await client.send(sendEmailCommand);
             console.log('Send Finished')
-
         }
 
 
         return assignment
     }
+
+
 }
