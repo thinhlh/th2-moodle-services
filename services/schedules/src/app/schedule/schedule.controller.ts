@@ -52,17 +52,14 @@ export class ScheduleController {
                 }
             },
             Destination: {
-                ToAddresses: assignment.receivers,
+                ToAddresses: ['thinhlh0812@gmail.com'],
             },
             Source: "thinhlh0812@gmail.com"
         });
 
-        if (this.configService.get<boolean>('SEND_EMAIL')) {
-            console.log('Sending email')
-            const result = await client.send(sendEmailCommand);
-            console.log('Send Finished')
-        }
-
+        console.log('Sending email')
+        const result = await client.send(sendEmailCommand);
+        console.log('Send Finished')
 
         return assignment
     }
