@@ -52,7 +52,7 @@ export class ScheduleController {
                 }
             },
             Destination: {
-                ToAddresses: ['thinhlh0812@gmail.com'],
+                ToAddresses: assignment.receivers,
             },
             Source: "thinhlh0812@gmail.com"
         });
