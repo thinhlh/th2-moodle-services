@@ -1,5 +1,5 @@
 export enum AssignmentStatus {
-    PENDING,
-    SUBMITTED,
-    OVERDUE,
+    PENDING = "PENDING",
+    SUBMITTED = "SUBMITTED",
+    OVERDUE = "OVERDUE",
 }

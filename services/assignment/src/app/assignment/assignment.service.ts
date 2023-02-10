@@ -42,6 +42,10 @@ export class AssignmentService {
                 })
             case AssignmentStatus.SUBMITTED:
                 return this.assignmentRepository.find({
+
+                })
+            case AssignmentStatus.OVERDUE:
+                return this.assignmentRepository.find({
                     where: {
                         dueDate: LessThanOrEqual(new Date())
                     }
